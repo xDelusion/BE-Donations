@@ -8,8 +8,8 @@ const staffSchema = new Schema(
     civilid: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     phone: Number,
-    hospital_id: { type: Schema.Types.ObjectId, ref: "Hospital" },
   },
+
   { timestamps: true }
 );
 
