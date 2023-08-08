@@ -11,7 +11,7 @@ const connectDb = require("./database");
 const passport = require("passport");
 const morgan = require("morgan");
 const path = require("path");
-
+const recipientReqRoutes = require("./api/RecipientRequest/rr.routes");
 connectDb();
 
 //declare var
@@ -32,6 +32,10 @@ app.use("/media", express.static(path.join(__dirname, "media")));
 app.use("/api/auth", authRoutes);
 app.use("/api/recipient", recipientReqRoutes);
 app.use("/api/paci", paciRoutes);
+
+app.use("/api/recipient", recipientReqRoutes);
+
+
 
 //errorhandlers:
 app.use(notFound);

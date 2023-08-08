@@ -13,7 +13,7 @@ const recipientRequestSchema = new Schema(
     urgent: Boolean,
     //retlations
     donor_id: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    recipients: [{ type: Schema.Types.ObjectId, ref: "Recipient" }],
+    // recipients: [{ type: Schema.Types.ObjectId, ref: "Recipient" }],
   },
   { timestamps: true }
 );

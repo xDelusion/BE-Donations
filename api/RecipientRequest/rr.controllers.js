@@ -1,3 +1,4 @@
+
 const Recipient = require("../../models/RecipientRequest");
 const User = require("../../models/User");
 
@@ -32,3 +33,4 @@ exports.addRecipient = async (req, res, next) => {
     next(error);
   }
 };
+
