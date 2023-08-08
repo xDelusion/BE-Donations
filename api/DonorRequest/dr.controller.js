@@ -7,7 +7,8 @@ exports.createDonorRequest = async (req, res, next) => {
     if (user.donor_req_id) {
       return res.status(401).json({ message: "You already have a request" });
     } else {
-      const newDonorRequest = await DonorRequest.create(req.body);
+      console.log(req.body)
+      const newDonorRequest = await DonorRequest.create({QA:req.body});
       return res.status(201).json(newDonorRequest);
     }
   } catch (err) {
@@ -32,5 +33,17 @@ exports.getDonorRequestById = async (req, res, next) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getAllRequest = async (req, res, next) => {
+  try {
+      const request = await DonorRequest.find();
+
+      return res.status(200).json(request);
+      
+  } catch (err) {
+    // return res.status(500).json(err.message);
+    return next(err);
   }
 };
