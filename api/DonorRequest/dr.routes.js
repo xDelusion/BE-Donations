@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { createDonorRequest, getDonorRequestById } = require("./dr.controller");
+const { createDonorRequest, getDonorRequestById,getAllRequest } = require("./dr.controller");
 
 router.post(
   "/",
@@ -10,4 +10,8 @@ router.post(
 );
 
 router.get("/:donorReuestId", getDonorRequestById);
+
+router.get("/", getAllRequest);
+
 module.exports = router;
+

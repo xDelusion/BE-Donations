@@ -2,7 +2,7 @@ const { model, Schema } = require("mongoose");
 
 const questionSchema = new Schema(
   {
-    name: { type: String, unique: true, required: true },
+    qName: [{ type: String,required: true }],
   },
 
   { timestamps: true }

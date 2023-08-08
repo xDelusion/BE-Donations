@@ -21,7 +21,7 @@ router.param("userId", param);
 router.get("/me", jwtAuthenticate, getMe);
 router.get("/getusers", getAllUsers);
 
-router.post("/register/doner", register);
+router.post("/register/donor", register);
 router.post("/register/admin", register);
 
 router.post("/login", localAuthenticate, login);
