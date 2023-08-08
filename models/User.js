@@ -16,6 +16,9 @@ const userSchema = new Schema(
     dob: Date,
     heroList: Boolean,
     noOfDonations: Number,
+    isEmp: Boolean,
+    emp_no: Number,
+    isDonor: Boolean,
 
     //retlations
     donor_req_id: { type: Schema.Types.ObjectId, ref: "DonorRequest" },
