@@ -53,7 +53,6 @@ exports.register = async (req, res, next) => {
 
     const matchingWithPaci = await Paci.findOne({
       civilid: req.body.civilid,
-      name: req.body.name,
     });
     if (!matchingWithPaci) {
       return res
