@@ -17,7 +17,6 @@ exports.getMe = async (req, res, next) => {
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-
     return res.status(200).json(users);
   } catch (err) {
     return next(err);
@@ -52,15 +51,15 @@ exports.register = async (req, res, next) => {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
 
-    // const matchingWithPaci = await Paci.findOne({
-    //   civilid: req.body.civilid,
-    //   name: req.body.name,
-    // });
-    // if (!matchingWithPaci) {
-    //   return res
-    //     .status(403)
-    //     .json({ message: "Your civil id or name are not registered in PACI." });
-    // }
+    const matchingWithPaci = await Paci.findOne({
+      civilid: req.body.civilid,
+      name: req.body.name,
+    });
+    if (!matchingWithPaci) {
+      return res
+        .status(403)
+        .json({ message: "Your civil id or name are not registered in PACI." });
+    }
 
     const newUser = await User.create(req.body);
     //create token
