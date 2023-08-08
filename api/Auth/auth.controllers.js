@@ -17,7 +17,6 @@ exports.getMe = async (req, res, next) => {
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
-
     return res.status(200).json(users);
   } catch (err) {
     return next(err);
@@ -39,28 +38,37 @@ exports.register = async (req, res, next) => {
     if (req.file) {
       req.body.image = `${req.file.path.replace("\\", "/")}`;
     }
-
+    // console.log(password);
     req.body.password = await passHash(password);
 
-    // Existing User error
-    const existingCivilOrEmail = await User.findOne({
-      email: req.body.email,
+    //if (isEmp = false) { // Existing User error
+    const existingCivilid = await User.findOne({
       civilid: req.body.civilid,
     });
 
-    if (existingCivilOrEmail) {
+    if (existingCivilid) {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
 
-    // const matchingWithPaci = await Paci.findOne({
-    //   civilid: req.body.civilid,
-    //   name: req.body.name,
-    // });
-    // if (!matchingWithPaci) {
-    //   return res
-    //     .status(403)
-    //     .json({ message: "Your civil id or name are not registered in PACI." });
-    // }
+
+    const matchingWithPaci = await Paci.findOne({
+      civilid: req.body.civilid,
+    });
+    if (!matchingWithPaci) {
+      return res
+        .status(403)
+        .json({ message: "Your civil id or name are not registered in PACI." });
+    }
+
+    const exsistingEmpnoOrCivilId = await User.findOne({
+      emp_no: req.body.emp_no,
+      civilid: req.body.civilid,
+    });
+
+    if (exsistingEmpnoOrCivilId) {
+      return res.status(403).json({ message: "Email or civil already exists" });
+    }
+  
 
     const newUser = await User.create(req.body);
     //create token

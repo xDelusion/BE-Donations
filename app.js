@@ -3,6 +3,7 @@ const express = require("express");
 const config = require("./config/keys");
 const authRoutes = require("./api/Auth/auth.routes");
 const recipientReqRoutes = require("./api/RecipientRequest/rr.routes");
+const paciRoutes = require("./api/Paci/paci.routes");
 const notFound = require("./middlewares/notFoundHandler");
 const { localStrategy, jwtStrategy } = require("./middlewares/passport");
 const errorHandler = require("./middlewares/errorHandler");
@@ -30,6 +31,7 @@ passport.use(jwtStrategy);
 app.use("/media", express.static(path.join(__dirname, "media")));
 app.use("/api/auth", authRoutes);
 app.use("/api/recipient", recipientReqRoutes);
+app.use("/api/paci", paciRoutes);
 
 //errorhandlers:
 app.use(notFound);
