@@ -8,12 +8,10 @@ const recipientRequestSchema = new Schema(
     bloodType: String,
     noOfBloodBags: Number,
     bbFile_no: Number,
-    phone: Number,
     dob: Date,
     urgent: Boolean,
     //retlations
     donor_id: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    // recipients: [{ type: Schema.Types.ObjectId, ref: "Recipient" }],
   },
   { timestamps: true }
 );
