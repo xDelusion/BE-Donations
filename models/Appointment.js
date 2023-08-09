@@ -3,7 +3,6 @@ const { model, Schema } = require("mongoose");
 const appointmentSchema = new Schema(
   {
     appoitment_dte: Date,
-    appoitment_time: Date,
     email: { type: String, unique: true },
     name: { type: String, required: true },
     civilid: { type: Number, unique: true, required: true },
