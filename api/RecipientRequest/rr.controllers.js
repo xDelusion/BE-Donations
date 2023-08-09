@@ -1,4 +1,3 @@
-
 const Recipient = require("../../models/RecipientRequest");
 const User = require("../../models/User");
 
@@ -12,8 +11,8 @@ exports.getRecipientReqs = async (req, res, next) => {
 };
 
 exports.fetchRecipients = async (recipientId) => {
-  const foundRecipient = await Recipient.findById(recipientId).populate(
-    "donor_id recipients"
+  const foundRecipient = await RecipientRequest.findById(recipientId).populate(
+    "donor_id"
   );
   return foundRecipient;
 };
@@ -33,4 +32,3 @@ exports.addRecipient = async (req, res, next) => {
     next(error);
   }
 };
-
