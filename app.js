@@ -34,8 +34,6 @@ app.use("/api/recipient", recipientReqRoutes);
 app.use("/api/paci", paciRoutes);
 app.use("/api/donor", drRoutes);
 
-app.use("/api/recipient", recipientReqRoutes);
-
 //errorhandlers:
 app.use(notFound);
 app.use(errorHandler);
