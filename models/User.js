@@ -22,7 +22,7 @@ const userSchema = new Schema(
 
     //retlations
     donor_req_id: { type: Schema.Types.ObjectId, ref: "DonorRequest" },
-    recipients: [{ type: Schema.Types.ObjectId, ref: "Recipient" }],
+    recipients: [{ type: Schema.Types.ObjectId, ref: "RecipientRequest" }],
   },
   { timestamps: true }
 );
