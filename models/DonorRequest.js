@@ -7,7 +7,7 @@ const donorRequestSchema = new Schema(
     //retlations
     QA: [
       {
-        question_id: String,
+        question: String,
         answer: String,
       },
     ],
