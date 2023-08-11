@@ -23,7 +23,7 @@ router.get("/getusers", getAllUsers);
 
 router.post("/register/donor", (req, res, next) => {
   req.body.userType = "donor";
-  register;
+  register(req, res, next);
 });
 router.post("/register/admin", register);
 

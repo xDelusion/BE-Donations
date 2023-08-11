@@ -50,6 +50,7 @@ exports.register = async (req, res, next) => {
     const matchingWithPaci = await Paci.findOne({
       civilid: req.body.civilid,
     });
+
     if (!matchingWithPaci) {
       return res
         .status(403)
@@ -64,6 +65,8 @@ exports.register = async (req, res, next) => {
     if (exsistingEmpnoOrCivilId) {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
+
+    console.log(` user type is = ${req.body.userType}`);
     if (req.body.userType === "donor") {
       const newUser = await User.create(req.body);
     }
