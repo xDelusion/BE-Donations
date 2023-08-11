@@ -93,7 +93,7 @@ exports.register = async (req, res, next) => {
       req.body.matchingTypes = ["AB+"];
     }
     let newUser = null;
-    console.log(` user type is = ${req.body.userType}`);
+
     if (req.body.userType === "donor") {
       newUser = await User.create(req.body);
     }
