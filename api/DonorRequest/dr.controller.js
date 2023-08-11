@@ -8,7 +8,8 @@ exports.createDonorRequest = async (req, res, next) => {
       return res.status(401).json({ message: "You already have a request" });
     } else {
       console.log(req.body);
-      const newDonorRequest = await DonorRequest.create({ QA: req.body });
+      req.body.user_id = req.user._id
+      const newDonorRequest = await DonorRequest.create(req.body );
       return res.status(201).json(newDonorRequest);
     }
   } catch (err) {
