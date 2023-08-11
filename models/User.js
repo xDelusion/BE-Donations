@@ -19,7 +19,7 @@ const userSchema = new Schema(
     isEmp: Boolean,
     emp_no: Number,
     isDonor: Boolean,
-
+    matchingTypes: [{ type: String }],
     //retlations
     donor_req_id: { type: Schema.Types.ObjectId, ref: "DonorRequest" },
     recipients: [{ type: Schema.Types.ObjectId, ref: "RecipientRequest" }],
