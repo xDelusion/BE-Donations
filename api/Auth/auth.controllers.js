@@ -65,6 +65,32 @@ exports.register = async (req, res, next) => {
     if (exsistingEmpnoOrCivilId) {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
+    if (req.body.bloodType === "O-") {
+      req.body.matchingTypes = ["O-"];
+    } else if (req.body.bloodType === "O+") {
+      req.body.matchingTypes = ["O-", "O+"];
+    } else if (req.body.bloodType === "A-") {
+      req.body.matchingTypes = ["O-", "A-"];
+    } else if (req.body.bloodType === "A+") {
+      req.body.matchingTypes = ["O-", "O+", "A-", "A+"];
+    } else if (req.body.bloodType === "B-") {
+      req.body.matchingTypes = ["O-", "B-"];
+    } else if (req.body.bloodType === "B+") {
+      req.body.matchingTypes = ["O-", "O+", "B-", "B+"];
+    } else if (req.body.bloodType === "AB-") {
+      req.body.matchingTypes = ["O-", "A-", "B-", "AB-"];
+    } else if (req.body.bloodType === "AB+") {
+      req.body.matchingTypes = [
+        "O-",
+        "O+",
+        "A-",
+        "A+",
+        "B-",
+        "B+",
+        "AB-",
+        "AB+",
+      ];
+    }
 
     console.log(` user type is = ${req.body.userType}`);
     if (req.body.userType === "donor") {
