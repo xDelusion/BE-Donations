@@ -31,7 +31,15 @@ router.post(
   register
 );
 
-router.post("/register/admin", register);
+router.post(
+  "/register/admin",
+  (req, res, next) => {
+    req.body.userType = "admin";
+    next();
+  },
+  register
+);
+
 
 router.post("/login", localAuthenticate, login);
 router.put("/", jwtAuthenticate, updateUser);

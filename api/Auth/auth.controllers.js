@@ -6,7 +6,7 @@ const Paci = require("../../models/Paci");
 exports.getMe = async (req, res, next) => {
   try {
     const me = await User.findById(req.user._id)
-      .populate("DonorRequest Recipient")
+      .populate("donor_req_id recipients")
       .select("-password");
     return res.status(200).json(me);
   } catch (error) {
