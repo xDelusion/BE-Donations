@@ -21,6 +21,7 @@ router.param("userId", param);
 router.get("/me", jwtAuthenticate, getMe);
 router.get("/getusers", getAllUsers);
 
+
 router.post(
   "/register/donor",
   (req, res, next) => {
@@ -29,6 +30,7 @@ router.post(
   },
   register
 );
+
 router.post(
   "/register/admin",
   (req, res, next) => {
@@ -37,6 +39,7 @@ router.post(
   },
   register
 );
+
 
 router.post("/login", localAuthenticate, login);
 router.put("/", jwtAuthenticate, updateUser);
