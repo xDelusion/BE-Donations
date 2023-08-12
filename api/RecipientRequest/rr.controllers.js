@@ -3,7 +3,7 @@ const User = require("../../models/User");
 
 exports.getRecipientReqs = async (req, res, next) => {
   try {
-    const recipients = await Recipient.find().populate("donor_id recipients");
+    const recipients = await RecipientRequest.find().populate("donor_id");
     return res.status(200).json(recipients);
   } catch (err) {
     next(err);
