@@ -25,7 +25,8 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    //encrypt the password
+    //encrypt the password\
+    console.log(req.body);
     const { password } = req.body;
     const passwordPattern = /[a-zA-Z0-9]{8,30}/;
     const isPasswordValid = passwordPattern.test(password);
@@ -35,9 +36,6 @@ exports.register = async (req, res, next) => {
         .json({ message: "Password must be 8-30 characters long" });
     }
 
-    if (req.file) {
-      req.body.image = `${req.file.path.replace("\\", "/")}`;
-    }
     // console.log(password);
     req.body.password = await passHash(password);
 
@@ -50,10 +48,10 @@ exports.register = async (req, res, next) => {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
 
-
     const matchingWithPaci = await Paci.findOne({
       civilid: req.body.civilid,
     });
+
     if (!matchingWithPaci) {
       return res
         .status(403)
@@ -68,9 +66,38 @@ exports.register = async (req, res, next) => {
     if (exsistingEmpnoOrCivilId) {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
-  
+    if (req.body.bloodType === "O-") {
+      req.body.matchingTypes = [
+        "O-",
+        "O+",
+        "A-",
+        "A+",
+        "B-",
+        "B+",
+        "AB-",
+        "AB+",
+      ];
+    } else if (req.body.bloodType === "O+") {
+      req.body.matchingTypes = ["O+", "A+", "B+", "AB+"];
+    } else if (req.body.bloodType === "A-") {
+      req.body.matchingTypes = ["A-", "A+", "AB-", "AB+"];
+    } else if (req.body.bloodType === "A+") {
+      req.body.matchingTypes = ["A+", "AB+"];
+    } else if (req.body.bloodType === "B-") {
+      req.body.matchingTypes = ["B-", "B+", "AB-", "AB+"];
+    } else if (req.body.bloodType === "B+") {
+      req.body.matchingTypes = ["B+", "AB+"];
+    } else if (req.body.bloodType === "AB-") {
+      req.body.matchingTypes = ["AB-", "AB+"];
+    } else if (req.body.bloodType === "AB+") {
+      req.body.matchingTypes = ["AB+"];
+    }
+    let newUser = null;
+    console.log(` user type is = ${req.body.userType}`);
+    if (req.body.userType === "donor") {
+      newUser = await User.create(req.body);
+    }
 
-    const newUser = await User.create(req.body);
     //create token
     const token = generateToken(newUser);
     //return token

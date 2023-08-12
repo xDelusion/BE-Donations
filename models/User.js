@@ -2,8 +2,8 @@ const { model, Schema } = require("mongoose");
 
 const userSchema = new Schema(
   {
-    email: { type: String, unique: true, required: true },
-    name: { type: String, unique: true, required: true },
+    email: { type: String, unique: true },
+    name: { type: String, required: true },
     civilid: { type: Number, unique: true, required: true },
     password: { type: String, required: true },
     image: {
@@ -19,10 +19,10 @@ const userSchema = new Schema(
     isEmp: Boolean,
     emp_no: Number,
     isDonor: Boolean,
-
+    matchingTypes: [{ type: String }],
     //retlations
     donor_req_id: { type: Schema.Types.ObjectId, ref: "DonorRequest" },
-    recipients: [{ type: Schema.Types.ObjectId, ref: "Recipient" }],
+    recipients: [{ type: Schema.Types.ObjectId, ref: "RecipientRequest" }],
   },
   { timestamps: true }
 );
