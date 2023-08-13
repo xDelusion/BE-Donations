@@ -97,12 +97,17 @@ exports.register = async (req, res, next) => {
       civilid: req.body.civilid,
       isEmp: true,
     });
-    let updatedAdmin = null;
-    if (existingEmpno && req.body.userType === "admin") {
-      updatedAdmin = await User.findByIdAndUpdate(existingEmpno.id, req.body);
-      const token = generateToken(updatedAdmin);
-      return res.status(201).json({ token });
-    }
+    // let updatedAdmin = null;
+    // if (existingEmpno && req.body.userType === "admin") {
+    //   updatedAdmin = await User.findByIdAndUpdate(existingEmpno.id, req.body);
+    //   const token = generateToken(updatedAdmin);
+    //   return res.status(201).json({ token });
+    // }
+
+    newUser = await User.create(req.body);
+    //create token
+    const token = generateToken(newUser);
+    return res.status(201).json({ token });
   } catch (err) {
     return next(err);
   }
