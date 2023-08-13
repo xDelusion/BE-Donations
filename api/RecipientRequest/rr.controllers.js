@@ -1,4 +1,4 @@
-const Recipient = require("../../models/RecipientRequest");
+const RecipientRequest = require("../../models/RecipientRequest");
 const User = require("../../models/User");
 
 exports.getRecipientReqs = async (req, res, next) => {
@@ -26,7 +26,7 @@ exports.addRecipient = async (req, res, next) => {
         .json({ message: "You are not authorized to add a recipient request" });
     }
 
-    const recipient = await Recipient.create(req.body);
+    const recipient = await RecipientRequest.create(req.body);
     res.status(201).json(recipient);
   } catch (error) {
     next(error);
