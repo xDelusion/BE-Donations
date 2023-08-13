@@ -44,7 +44,7 @@ exports.register = async (req, res, next) => {
       civilid: req.body.civilid,
     });
 
-    if (existingCivilid) {
+    if (existingCivilid && req.body.userType === "donor") {
       return res.status(403).json({ message: "Email or civil already exists" });
     }
 
@@ -52,20 +52,12 @@ exports.register = async (req, res, next) => {
       civilid: req.body.civilid,
     });
 
-    if (!matchingWithPaci) {
+    if (!matchingWithPaci && req.body.userType === "donor") {
       return res
         .status(403)
         .json({ message: "Your civil id or name are not registered in PACI." });
     }
 
-    const exsistingEmpnoOrCivilId = await User.findOne({
-      emp_no: req.body.emp_no,
-      civilid: req.body.civilid,
-    });
-
-    if (exsistingEmpnoOrCivilId) {
-      return res.status(403).json({ message: "Email or civil already exists" });
-    }
     if (req.body.bloodType === "O-") {
       req.body.matchingTypes = [
         "O-",
@@ -96,12 +88,21 @@ exports.register = async (req, res, next) => {
     console.log(` user type is = ${req.body.userType}`);
     if (req.body.userType === "donor") {
       newUser = await User.create(req.body);
+      //create token
+      const token = generateToken(newUser);
+      return res.status(201).json({ token });
     }
-
-    //create token
-    const token = generateToken(newUser);
-    //return token
-    return res.status(201).json({ token });
+    const existingEmpno = await User.findOne({
+      emp_no: req.body.emp_no,
+      civilid: req.body.civilid,
+      isEmp: true,
+    });
+    let updatedAdmin = null;
+    if (existingEmpno && req.body.userType === "admin") {
+      updatedAdmin = await User.findByIdAndUpdate(existingEmpno.id, req.body);
+      const token = generateToken(updatedAdmin);
+      return res.status(201).json({ token });
+    }
   } catch (err) {
     return next(err);
   }
