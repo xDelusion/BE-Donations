@@ -19,23 +19,18 @@ exports.updateProfile = async (req, res, next) => {
 
     await req.user.updateOne({
       image: req.body.image,
-      civilid: req.body.civilid,
-      name: req.body.name,
-      dob: req.body.dob,
+
       phone: req.body.phone,
-      bloodType: req.body.bloodType,
-      noOfDonations: req.body.noOfDonations,
+      email: req.body.email,
     });
 
     return res.status(201).json({
       _id: req.user._id,
       image: req.user.image,
-      civilid: req.user.civilid,
-      name: req.user.name,
-      dob: req.user.dob,
+
       phone: req.user.phone,
-      bloodType: req.user.bloodType,
-      noOfDonations: req.user.noOfDonations,
+
+      email: req.user.email,
     });
   } catch (error) {
     next(error);
