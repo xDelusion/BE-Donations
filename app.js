@@ -7,7 +7,7 @@ const recipientReqRoutes = require("./api/RecipientRequest/rr.routes");
 const paciRoutes = require("./api/Paci/paci.routes");
 const drRoutes = require("./api/DonorRequest/dr.routes");
 const notFound = require("./middlewares/notFoundHandler");
-const profileRoutes = require("./api/Profile/profile.routes")
+const profileRoutes = require("./api/Profile/profile.routes");
 const { localStrategy, jwtStrategy } = require("./middlewares/passport");
 const errorHandler = require("./middlewares/errorHandler");
 const connectDb = require("./database");
@@ -38,8 +38,7 @@ app.use("/api/paci", paciRoutes);
 app.use("/api/bloodRequest", bloodRequestRoutes);
 
 app.use("/api/donor", drRoutes);
-app.use("/api/profile", profileRoutes );
-
+app.use("/api/profile", profileRoutes);
 
 //errorhandlers:
 app.use(notFound);

@@ -22,7 +22,7 @@ router.get(
   getDonorRequestByUserId
 );
 router.put(
-  "/:recipientId ",
+  "/:recipientId",
   passport.authenticate("jwt", { session: false }),
   updateDonorRequest
 );

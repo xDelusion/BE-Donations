@@ -13,7 +13,6 @@ exports.getMe = async (req, res, next) => {
     next(error);
   }
 };
-
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -87,6 +86,8 @@ exports.register = async (req, res, next) => {
     let newUser = null;
     console.log(` user type is = ${req.body.userType}`);
     if (req.body.userType === "donor") {
+      req.body.emp_no = req.body.civilid;
+
       newUser = await User.create(req.body);
       //create token
       const token = generateToken(newUser);

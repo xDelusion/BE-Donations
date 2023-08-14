@@ -24,18 +24,26 @@ exports.createDonorRequest = async (req, res, next) => {
 
 exports.updateDonorRequest = async (req, res, next) => {
   try {
-    const { recipientRequestId } = req.params;
-    const donorRequest = await DonorRequest.findById(req.user_id);
-    if (!donorRequest) {
-      return res.status(404).json({ message: "Request not Found!" });
-    } else {
-      const updatedDonorRequest = await DonorRequest.findByIdAndUpdate(
-        donorRequestId,
-        req.body,
-        { new: true }
-      );
-      return res.status(200).json(updatedDonorRequest);
-    }
+    const { recipientId } = req.params;
+    console.log(recipientId);
+    const donor_req_id = req.user.donor_req_id;
+    const donorRequest = await DonorRequest.findByIdAndUpdate(donor_req_id, {
+      recipient_id: recipientId,
+    });
+
+    res.status(200).json(donorRequest);
+    // const { recipientId } = req.params;
+    // const donorRequest = await DonorRequest.findById(req.user_id);
+    // if (!donorRequest) {
+    //   return res.status(404).json({ message: "Request not Found!" });
+    // } else {
+    //   const updatedDonorRequest = await DonorRequest.findByIdAndUpdate(
+    //     recipientId,
+    //     req.body,
+    //     { new: true }
+    //   );
+    //   return res.status(200).json(updatedDonorRequest);
+    // }
   } catch (err) {
     return next(err);
   }
