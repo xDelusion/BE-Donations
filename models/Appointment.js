@@ -3,14 +3,11 @@ const { model, Schema } = require("mongoose");
 const appointmentSchema = new Schema(
   {
     appoitment_dte: Date,
-    email: { type: String, unique: true },
-    name: { type: String, required: true },
-    civilid: { type: Number, unique: true, required: true },
-    password: { type: String, required: true },
-    userid: { type: String, required: true },
-    confirmed: { type: Boolean, required: true },
+    confirmed: Boolean,
     donor_req_id: { type: String, required: true },
     recipientReqId: { type: String, required: true },
+    //relations
+    user_id: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
