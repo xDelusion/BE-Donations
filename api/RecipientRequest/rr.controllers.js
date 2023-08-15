@@ -9,6 +9,16 @@ exports.getRecipientReqs = async (req, res, next) => {
     next(err);
   }
 };
+exports.getRecipientReqsBYID = async (req, res, next) => {
+  try {
+    const recipients = await RecipientRequest.findById(req.params._id).populate(
+      "donor_id"
+    );
+    return res.status(200).json(recipients);
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.fetchRecipients = async (recipientId) => {
   const foundRecipient = await RecipientRequest.findById(recipientId).populate(
