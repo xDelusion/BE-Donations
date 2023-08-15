@@ -1,4 +1,5 @@
 const DonorRequest = require("../../models/DonorRequest");
+const RecipientRequest = require("../../models/RecipientRequest");
 const User = require("../../models/User");
 const param = require("../../utils/params/param");
 exports.createDonorRequest = async (req, res, next) => {
@@ -29,6 +30,10 @@ exports.updateDonorRequest = async (req, res, next) => {
     const donor_req_id = req.user.donor_req_id;
     const donorRequest = await DonorRequest.findByIdAndUpdate(donor_req_id, {
       recipient_id: recipientId,
+    });
+
+    await RecipientRequest.findByIdAndUpdate(recipientId, {
+      $push: { donor_id: req.user._id },
     });
 
     res.status(200).json(donorRequest);
