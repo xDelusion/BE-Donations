@@ -13,7 +13,7 @@ const userSchema = new Schema(
     bloodType: String,
     lastDonation: Date,
     phone: { type: Number, unique: true, required: true },
-    dob: Date,
+    dob: String,
     heroList: Boolean,
     noOfDonations: Number,
     isEmp: Boolean,
